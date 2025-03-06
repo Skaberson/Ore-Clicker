@@ -17,6 +17,14 @@ button {
     margin: 10px;
 }
 
+.ore-button {
+    background-color: #b87333; /* Copper color */
+}
+
+.upgrade-button {
+    background-color: #ccc;
+}
+
 #oreCount {
     font-size: 24px;
     font-weight: bold;
