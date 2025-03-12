@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ore Clicker</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
@@ -28,12 +28,12 @@
             <div class="item" id="rope">
                 <h3>Rope</h3>
                 <p>Quantity: <span id="rope-quantity">0</span></p>
-                <button onclick="craftItem('rope')">Craft Rope</button>
+                <button onclick="items.rope.craft()">Craft Rope</button>
             </div>
             <div class="item" id="wooden-pickaxe">
                 <h3>Wooden Pickaxe</h3>
                 <p>Quantity: <span id="wooden-pickaxe-quantity">0</span></p>
-                <button onclick="craftItem('woodenPickaxe')">Craft Wooden Pickaxe</button>
+                <button onclick="items.woodenPickaxe.craft()">Craft Wooden Pickaxe</button>
             </div>
         </div>
     </div>
