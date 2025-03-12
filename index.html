@@ -4,18 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ore Clicker</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div id="game">
+    <div class="container">
         <h1>Ore Clicker</h1>
-        <button id="oreButton">Mine Ore</button>
-        <p>Ores: <span id="oreCount">0</span></p>
-        
-        <h2>Upgrades</h2>
-        <div id="upgrades">
-            <button id="upgradeOre" disabled>Upgrade Ore (Cost: 50 ores)</button>
-            <button id="upgradePickaxe" disabled>Upgrade Pickaxe (Cost: 100 ores)</button>
+        <div class="resources">
+            <div class="resource" id="wood">
+                <h2>Wood</h2>
+                <p>Quantity: <span id="wood-quantity">0</span></p>
+                <button onclick="collectResource('wood')">Collect Wood</button>
+                <button onclick="upgradeResource('wood')">Upgrade Wood</button>
+            </div>
+            <div class="resource" id="leaf">
+                <h2>Leaf</h2>
+                <p>Quantity: <span id="leaf-quantity">0</span></p>
+                <button onclick="collectResource('leaf')">Collect Leaf</button>
+                <button onclick="upgradeResource('leaf')">Upgrade Leaf</button>
+            </div>
+        </div>
+        <div class="crafting">
+            <h2>Crafting</h2>
+            <div class="item" id="rope">
+                <h3>Rope</h3>
+                <p>Quantity: <span id="rope-quantity">0</span></p>
+                <button onclick="craftItem('rope')">Craft Rope</button>
+            </div>
+            <div class="item" id="wooden-pickaxe">
+                <h3>Wooden Pickaxe</h3>
+                <p>Quantity: <span id="wooden-pickaxe-quantity">0</span></p>
+                <button onclick="craftItem('woodenPickaxe')">Craft Wooden Pickaxe</button>
+            </div>
         </div>
     </div>
     <script src="script.js"></script>
