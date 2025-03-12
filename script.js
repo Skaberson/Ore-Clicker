@@ -1,58 +1,77 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const oreButton = document.getElementById("oreButton");
-    const oreCountElement = document.getElementById("oreCount");
-    const upgradeOreButton = document.getElementById("upgradeOre");
-    const upgradePickaxeButton = document.getElementById("upgradePickaxe");
-
-    let ores = 0;
-    let oreValue = 1;
-    let oreUpgradeCost = 50;
-    let pickaxeUpgradeCost = 100;
-    let pickaxeMultiplier = 1;
-
-    const oreColors = [
-        { name: "Copper", color: "#b87333" },
-        { name: "Silver", color: "#c0c0c0" },
-        { name: "Gold", color: "#ffd700" },
-        { name: "Platinum", color: "#e5e4e2" }
-    ];
-    let currentOreIndex = 0;
-
-    oreButton.style.backgroundColor = oreColors[currentOreIndex].color;
-
-    oreButton.addEventListener("click", () => {
-        ores += oreValue * pickaxeMultiplier;
-        oreCountElement.textContent = ores;
-        checkUpgrades();
-    });
-
-    upgradeOreButton.addEventListener("click", () => {
-        if (ores >= oreUpgradeCost) {
-            ores -= oreUpgradeCost;
-            oreUpgradeCost *= 2;
-            oreValue += 1;
-            currentOreIndex = (currentOreIndex + 1) % oreColors.length;
-            oreButton.style.backgroundColor = oreColors[currentOreIndex].color;
-            oreButton.textContent = `Mine ${oreColors[currentOreIndex].name} Ore`;
-            checkUpgrades();
-            upgradeOreButton.textContent = `Upgrade Ore (Cost: ${oreUpgradeCost} ores)`;
-            oreCountElement.textContent = ores;
-        }
-    });
-
-    upgradePickaxeButton.addEventListener("click", () => {
-        if (ores >= pickaxeUpgradeCost) {
-            ores -= pickaxeUpgradeCost;
-            pickaxeUpgradeCost *= 2;
-            pickaxeMultiplier += 1;
-            checkUpgrades();
-            upgradePickaxeButton.textContent = `Upgrade Pickaxe (Cost: ${pickaxeUpgradeCost} ores)`;
-            oreCountElement.textContent = ores;
-        }
-    });
-
-    function checkUpgrades() {
-        upgradeOreButton.disabled = ores < oreUpgradeCost;
-        upgradePickaxeButton.disabled = ores < pickaxeUpgradeCost;
+// Define resources and ores
+const resources = {
+  wood: {
+    name: 'Wood',
+    quantity: 0,
+    upgradeCost: 10, // Cost to upgrade to the next level
+    level: 1,
+    getAmount: function() {
+      return Math.floor(1 * this.level); // Amount of wood collected based on level
     }
-});
+  },
+  leaf: {
+    name: 'Leaf',
+    quantity: 0,
+    upgradeCost: 15,
+    level: 1,
+    getAmount: function() {
+      return Math.floor(1 * this.level); // Amount of leaves collected based on level
+    }
+  },
+  // Add more resources as needed
+};
+
+const items = {
+  rope: {
+    name: 'Rope',
+    quantity: 0,
+    craft: function() {
+      if (resources.leaf.quantity >= 3) {
+        resources.leaf.quantity -= 3;
+        this.quantity++;
+      } else {
+        console.log('Not enough leaves to craft Rope');
+      }
+    }
+  },
+  woodenPickaxe: {
+    name: 'Wooden Pickaxe',
+    quantity: 0,
+    craft: function() {
+      if (resources.wood.quantity >= 10 && items.rope.quantity >= 2) {
+        resources.wood.quantity -= 10;
+        items.rope.quantity -= 2;
+        this.quantity++;
+      } else {
+        console.log('Not enough resources to craft Wooden Pickaxe');
+      }
+    }
+  },
+  // Add more items as needed
+};
+
+// Function to collect resources
+function collectResource(resource) {
+  resource.quantity += resource.getAmount();
+  console.log(`Collected ${resource.getAmount()} ${resource.name}(s). You now have ${resource.quantity}.`);
+}
+
+// Function to upgrade resources
+function upgradeResource(resource) {
+  if (resource.quantity >= resource.upgradeCost) {
+    resource.quantity -= resource.upgradeCost;
+    resource.level++;
+    resource.upgradeCost *= 2; // Increase the cost for the next upgrade
+    console.log(`${resource.name} upgraded to level ${resource.level}.`);
+  } else {
+    console.log(`Not enough ${resource.name} to upgrade. You need ${resource.upgradeCost - resource.quantity} more.`);
+  }
+}
+
+// Example usage
+collectResource(resources.wood);
+collectResource(resources.leaf);
+items.rope.craft();
+items.woodenPickaxe.craft();
+upgradeResource(resources.wood);
+upgradeResource(resources.leaf);
