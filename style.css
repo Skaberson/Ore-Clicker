@@ -1,35 +1,46 @@
 body {
     font-family: Arial, sans-serif;
-    text-align: center;
-    background-color: #f2f2f2;
+    background-color: #f4f4f4;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
     margin: 0;
-    padding: 0;
 }
 
-#game {
-    margin-top: 50px;
+.container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 600px;
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+.resources, .crafting {
+    margin-bottom: 20px;
+}
+
+.resource, .item {
+    margin-bottom: 10px;
 }
 
 button {
-    font-size: 20px;
     padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #fff;
     cursor: pointer;
-    margin: 10px;
 }
 
-.ore-button {
-    background-color: #b87333; /* Copper color */
-}
-
-.upgrade-button {
-    background-color: #ccc;
-}
-
-#oreCount {
-    font-size: 24px;
-    font-weight: bold;
-}
-
-#upgrades {
-    margin-top: 20px;
+button:hover {
+    background-color: #0056b3;
 }
