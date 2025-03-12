@@ -29,6 +29,7 @@ const items = {
       if (resources.leaf.quantity >= 3) {
         resources.leaf.quantity -= 3;
         this.quantity++;
+        updateDisplay();
       } else {
         console.log('Not enough leaves to craft Rope');
       }
@@ -42,6 +43,7 @@ const items = {
         resources.wood.quantity -= 10;
         items.rope.quantity -= 2;
         this.quantity++;
+        updateDisplay();
       } else {
         console.log('Not enough resources to craft Wooden Pickaxe');
       }
@@ -51,27 +53,34 @@ const items = {
 };
 
 // Function to collect resources
-function collectResource(resource) {
+function collectResource(resourceName) {
+  const resource = resources[resourceName];
   resource.quantity += resource.getAmount();
   console.log(`Collected ${resource.getAmount()} ${resource.name}(s). You now have ${resource.quantity}.`);
+  updateDisplay();
 }
 
 // Function to upgrade resources
-function upgradeResource(resource) {
+function upgradeResource(resourceName) {
+  const resource = resources[resourceName];
   if (resource.quantity >= resource.upgradeCost) {
     resource.quantity -= resource.upgradeCost;
     resource.level++;
     resource.upgradeCost *= 2; // Increase the cost for the next upgrade
     console.log(`${resource.name} upgraded to level ${resource.level}.`);
+    updateDisplay();
   } else {
     console.log(`Not enough ${resource.name} to upgrade. You need ${resource.upgradeCost - resource.quantity} more.`);
   }
 }
 
-// Example usage
-collectResource(resources.wood);
-collectResource(resources.leaf);
-items.rope.craft();
-items.woodenPickaxe.craft();
-upgradeResource(resources.wood);
-upgradeResource(resources.leaf);
+// Function to update display
+function updateDisplay() {
+  document.getElementById('wood-quantity').innerText = resources.wood.quantity;
+  document.getElementById('leaf-quantity').innerText = resources.leaf.quantity;
+  document.getElementById('rope-quantity').innerText = items.rope.quantity;
+  document.getElementById('wooden-pickaxe-quantity').innerText = items.woodenPickaxe.quantity;
+}
+
+// Initial display update
+updateDisplay();
